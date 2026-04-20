@@ -1,209 +1,365 @@
-# 🏥 Medivault Frontend
+# 🎨 Medivault Frontend
 
-A modern, responsive frontend for the **Medivault system**, enabling secure interaction between **patients, doctors, and admins** with a clean UI and role-based workflows.
-
-Built using **React, TypeScript, Tailwind CSS, and Vite**, this application provides an intuitive interface for managing medical records and access control.
+A modern, secure, and user-friendly interface for managing medical records with strict patient-controlled access.
 
 ---
 
-## 📌 Project Overview
+# 📌 Project Overview
 
-The Medivault Frontend is designed to:
+Medivault Frontend is a React-based application that connects with the Medivault backend to provide:
 
-- Provide role-based dashboards (Patient, Doctor, Admin)
-- Enable secure authentication and session handling
-- Allow patients to manage medical records
-- Enable doctors to request and access patient data
-- Deliver a smooth, responsive, and modern user experience
+* Secure authentication
+* Role-based dashboards
+* Controlled access to medical records
+* Real-time session and access management
 
----
+It ensures:
 
-## 🚀 Core Features
-
-### 🔐 Authentication UI
-- Login & Registration pages
-- Role-based navigation
-- JWT-based session handling (via backend)
+* Patients control their data visually and interactively
+* Doctors request and receive controlled access
+* Admins verify and manage system trust
 
 ---
 
-### 👤 Role-Based Dashboards
+# 🚀 Core Features
 
-#### 🧑 Patient
-- Upload and manage medical records
-- View personal health data
-- Approve/reject doctor access requests
+## 🔐 Authentication & Authorization
 
-#### 🧑‍⚕️ Doctor
-- Request access to patient records
-- View records after approval
-- Manage active sessions
+* JWT-based login system
+* Secure token storage (localStorage/session)
+* Role-based routing:
 
-#### 🛡️ Admin
-- Approve/reject doctor registrations
-- Monitor system activity
+  * PATIENT
+  * DOCTOR
+  * ADMIN
 
 ---
 
-### 📁 Medical Records UI
-- Upload interface for documents
-- List view of records
-- Download & delete actions
+## 👤 User Management UI
+
+* Registration (Patient / Doctor)
+* Doctor registration includes:
+
+  * ICMR ID (mandatory for verification)
+* Login system
+* Profile setup pages:
+
+  * Patient Profile
+  * Doctor Profile
 
 ---
 
-### 🔑 Access Control Interface
-- Request access flow
-- Approval/rejection UI
-- Session status tracking
+## 🧑‍⚕️ Doctor Workflow
+
+* View patients (search/list)
+* Request access to patient records
+* See request status (Pending / Approved / Rejected)
+* Wait for admin verification before access to system
+* Generate access key (after approval)
+* Start session to view records
 
 ---
 
-### 🎨 UI/UX Highlights
-- Fully responsive design
-- Clean dashboard layout
-- Reusable component system
-- Loading states and feedback components
-- Modern UI using Tailwind + component library
+## 👨‍👩‍👧 Patient Workflow
+
+* Upload and manage medical records
+* View access requests from doctors
+* Approve / Reject requests
+* Set time-bound access duration (patient-controlled)
+* View active sessions
+* Revoke access instantly
 
 ---
 
-## 🛠️ Tech Stack
+## 🧑‍💼 Admin Dashboard (Verification Layer)
 
-### Frontend
-- React (with Vite)
-- TypeScript
-- Tailwind CSS
-- Shadcn/UI components
+* View pending doctor registrations
 
-### State Management
-- React Context API
+* See doctor details:
 
-### API Communication
-- Axios / Fetch (via `services/api.ts`)
+  * Name
+  * Email
+  * ICMR ID
+
+* Perform verification:
+
+  * Search ICMR ID manually via official portal
+  * Validate authenticity of doctor credentials
+
+* Approve / Reject doctors
+
+👉 Only **verified doctors** are approved into the system
 
 ---
 
-## 📦 Project Structure
+## 📁 Medical Records UI
 
+* Upload files
+* View records list
+* Download securely
+* Delete records
+
+---
+
+## 🔑 Access Control UI
+
+* Doctor → Request access
+* Patient → Approve with duration
+* System → Generates access key
+* Doctor → Starts session
+* Access expires automatically
+
+---
+
+## ⏳ Session Management UI
+
+* Display active sessions
+
+* Show:
+
+  * Doctor name
+  * Start time
+  * Expiry time
+
+* Patient can revoke anytime
+
+---
+
+## 📜 Activity Feedback (Audit UX)
+
+* Show status messages:
+
+  * Request sent
+  * Access approved
+  * Session started
+  * Access expired
+  * Doctor verification pending
+
+---
+
+# 🏗️ Frontend Architecture
+
+```text
+Pages → Components → Services (API) → Backend API
+                     ↓
+                Auth Layer (JWT)
+                     ↓
+                State Management
 ```
-medivault-frontend/
+
+---
+
+# 🛠️ Tech Stack
+
+| Layer      | Technology               |
+| ---------- | ------------------------ |
+| Framework  | React.js                 |
+| Styling    | Tailwind CSS             |
+| Routing    | React Router             |
+| API Calls  | Axios                    |
+| Animations | Framer Motion (optional) |
+| State      | React Hooks / Context    |
+
+---
+
+# 📂 Folder Structure
+
+```text
+FrontEnd/
 │
-├── public/                    # Static assets
-├── components/               # UI components (buttons, cards, etc.)
-│   ├── ui/                   # Reusable UI components
-│   └── common components
+├── src/
+│   ├── pages/
+│   │   ├── auth/ (Login, Register)
+│   │   ├── patient/
+│   │   ├── doctor/
+│   │   ├── admin/
+│   │
+│   ├── components/
+│   ├── services/ (API calls)
+│   ├── utils/
+│   ├── App.tsx
 │
-├── context/                  # Global state (AuthContext)
-├── pages/                    # Page-level components
-│   ├── auth/                 # Login & Register
-│   ├── patient/
-│   ├── doctor/
-│   └── admin/
-│
-├── services/                 # API integration
-│   └── api.ts
-│
-├── App.tsx                   # Main app
-├── main.tsx                  # Entry point
-├── index.css                 # Global styles
-│
-├── tailwind.config.js
-├── vite.config.ts
-└── README.md
+└── public/
 ```
 
 ---
 
-## ⚙️ Setup & Installation
+# 🔄 Full User Flow
 
-### 1️⃣ Clone Repository
+## 👤 Patient Flow
+
+```text
+Register → Login
+   ↓
+Create Profile
+   ↓
+Upload Records
+   ↓
+Receive Doctor Requests
+   ↓
+Approve + Set Duration
+   ↓
+View Active Sessions
+   ↓
+Revoke Access (if needed)
+```
+
+---
+
+## 🧑‍⚕️ Doctor Flow (WITH VERIFICATION)
+
+```text
+Register (with ICMR ID)
+   ↓
+System marks as PENDING
+   ↓
+Admin reviews ICMR ID
+   ↓
+✔ Verified → APPROVED
+✖ Invalid → REJECTED
+   ↓
+Login (only if approved)
+   ↓
+Create Profile
+   ↓
+Request Access
+   ↓
+Wait for Patient Approval
+   ↓
+Generate Access Key
+   ↓
+Start Session
+   ↓
+Access Records
+```
+
+---
+
+## 🧑‍💼 Admin Flow (VERIFICATION FLOW)
+
+```text
+Login
+   ↓
+View Pending Doctors
+   ↓
+Select Doctor
+   ↓
+Check ICMR ID manually (ICMR portal)
+   ↓
+If valid → Approve
+If invalid → Reject
+```
+
+---
+
+# 🔐 Security Features
+
+* Role-based route protection
+* JWT token validation
+* Restricted UI access based on role
+* Doctor access blocked until verification
+* Time-bound session enforcement
+* Patient-controlled access duration
+
+---
+
+# ⚙️ Setup & Installation
+
+## 1️⃣ Install Dependencies
 
 ```bash
-git clone https://github.com/your-username/medivault-frontend.git
-cd medivault-frontend
-```
-
----
-
-### 2️⃣ Install Dependencies
-
-```bash
+cd FrontEnd
 npm install
 ```
 
 ---
 
-### 3️⃣ Configure Backend URL
+## 2️⃣ Configure API Base URL
 
-Update API base URL in:
-
-```
-src/services/api.ts
-```
-
-Example:
-
-```ts
-export const API_BASE_URL = "http://localhost:8080/api/v1";
+```js
+// src/services/api.js
+baseURL: "http://localhost:8080/api/v1"
 ```
 
 ---
 
-### 4️⃣ Run Development Server
+## 3️⃣ Run Application
 
 ```bash
 npm run dev
 ```
 
-Application runs at:
+Runs at:
 
-```
+```text
 http://localhost:5173
 ```
 
 ---
 
-## 🔗 Backend Integration
+# 🧪 Testing
 
-This frontend connects with:
+* Use backend with Postman
+* Test frontend via browser
+* Validate flows:
 
-👉 **Medivault Backend (Spring Boot API)**
-
-Ensure backend is running before using the frontend.
-
----
-
-## 🎯 Key Highlights
-
-✔ Role-based UI architecture  
-✔ Clean component-based design  
-✔ Scalable folder structure  
-✔ Type-safe development using TypeScript  
-✔ API-driven architecture  
-✔ Modern UI with Tailwind + reusable components  
+  * Auth
+  * Doctor verification
+  * Access requests
+  * Sessions
 
 ---
 
-## 📈 Future Enhancements
+# 🔄 Example Workflow (REALISTIC)
 
-- Dark mode support  
-- File preview for medical records  
-- Notifications system  
-- Better error handling & validation  
-- PWA support  
-
----
-
-## 👥 Contributors
-
-- **Kolli Jayanth Eswar**
-- **@jiviteshh**
-
-> Both contributors collaborated on **frontend and backend development**, system design, and overall architecture of the Medivault platform.
+```text
+Doctor registers with ICMR ID
+Admin verifies doctor credentials
+Doctor gets approved
+Doctor requests access
+Patient approves with time
+System generates access key
+Doctor starts session
+Doctor views records
+Session expires automatically
+```
 
 ---
 
-## 📄 License
+# 🚨 Important Notes
+
+* Doctor cannot access records without:
+
+  * Admin verification
+  * Patient approval
+  * Access key
+  * Active session
+
+* ICMR ID is mandatory for doctor registration
+
+* Verification is manual via admin
+
+---
+
+# 📈 Future Enhancements
+
+* Automated ICMR verification (if API available)
+* Document upload (license proof)
+* Email notifications for approvals
+* Real-time session updates
+* Mobile-first UI improvements
+
+---
+
+# 👥 Contributors
+
+Jivitesh (Owner)
+Kolli Jayanth Eswar (Key Contributor)
+
+---
+
+# 📄 License
 
 This project is for educational and demonstration purposes.
+
+---
