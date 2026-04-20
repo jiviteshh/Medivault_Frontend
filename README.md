@@ -1,230 +1,194 @@
 # 🎨 Medivault Frontend
 
-A modern, secure, and user-friendly interface for managing medical records with strict patient-controlled access.
+A modern, secure, and role-based frontend application for managing medical records with **patient-controlled access and real-time authorization workflows**.
 
 ---
 
-# 📌 Project Overview
+## 📌 Project Overview
 
-Medivault Frontend is a React-based application that connects with the Medivault backend to provide:
+Medivault Frontend is a **React-based client application** that integrates with the Medivault backend to deliver a secure and intuitive user experience.
 
-* Secure authentication
-* Role-based dashboards
-* Controlled access to medical records
-* Real-time session and access management
+It enables:
 
-It ensures:
-
-* Patients control their data visually and interactively
-* Doctors request and receive controlled access
-* Admins verify and manage system trust
+- Patients to manage and control their medical data
+- Doctors to request and access records with approval
+- Admins to verify and maintain system integrity
 
 ---
 
-# 🚀 Core Features
+## 🚀 Core Features
 
-## 🔐 Authentication & Authorization
-
-* JWT-based login system
-* Secure token storage (localStorage/session)
-* Role-based routing:
-
-  * PATIENT
-  * DOCTOR
-  * ADMIN
+### 🔐 Authentication & Authorization
+- JWT-based authentication
+- Secure token handling
+- Role-based routing:
+  - `PATIENT`
+  - `DOCTOR`
+  - `ADMIN`
 
 ---
 
-## 👤 User Management UI
-
-* Registration (Patient / Doctor)
-* Doctor registration includes:
-
-  * ICMR ID (mandatory for verification)
-* Login system
-* Profile setup pages:
-
-  * Patient Profile
-  * Doctor Profile
+### 👤 User Management Interface
+- Registration for Patients and Doctors
+- Doctor onboarding includes **ICMR ID verification**
+- Profile creation and management
 
 ---
 
-## 🧑‍⚕️ Doctor Workflow
-
-* View patients (search/list)
-* Request access to patient records
-* See request status (Pending / Approved / Rejected)
-* Wait for admin verification before access to system
-* Generate access key (after approval)
-* Start session to view records
-
----
-
-## 👨‍👩‍👧 Patient Workflow
-
-* Upload and manage medical records
-* View access requests from doctors
-* Approve / Reject requests
-* Set time-bound access duration (patient-controlled)
-* View active sessions
-* Revoke access instantly
+### 🧑‍⚕️ Doctor Workflow
+- Browse/search patients
+- Request access to records
+- Track request status (Pending / Approved / Rejected)
+- Access system only after admin verification
+- Generate access key
+- Start session to view records
 
 ---
 
-## 🧑‍💼 Admin Dashboard (Verification Layer)
-
-* View pending doctor registrations
-
-* See doctor details:
-
-  * Name
-  * Email
-  * ICMR ID
-
-* Perform verification:
-
-  * Search ICMR ID manually via official portal
-  * Validate authenticity of doctor credentials
-
-* Approve / Reject doctors
-
-👉 Only **verified doctors** are approved into the system
+### 👨‍👩‍👧 Patient Workflow
+- Upload and manage medical records
+- View incoming doctor requests
+- Approve or reject requests
+- Define **time-bound access duration**
+- Monitor active sessions
+- Revoke access instantly
 
 ---
 
-## 📁 Medical Records UI
+### 🧑‍💼 Admin Dashboard (Verification Layer)
+- View pending doctor registrations
+- Inspect doctor details:
+  - Name
+  - Email
+  - ICMR ID
+- Manually verify credentials via official portal
+- Approve or reject doctors
 
-* Upload files
-* View records list
-* Download securely
-* Delete records
-
----
-
-## 🔑 Access Control UI
-
-* Doctor → Request access
-* Patient → Approve with duration
-* System → Generates access key
-* Doctor → Starts session
-* Access expires automatically
+👉 Only **verified doctors** can access the system
 
 ---
 
-## ⏳ Session Management UI
-
-* Display active sessions
-
-* Show:
-
-  * Doctor name
-  * Start time
-  * Expiry time
-
-* Patient can revoke anytime
+### 📁 Medical Records UI
+- Upload files securely
+- View records list
+- Download records
+- Delete records
 
 ---
 
-## 📜 Activity Feedback (Audit UX)
-
-* Show status messages:
-
-  * Request sent
-  * Access approved
-  * Session started
-  * Access expired
-  * Doctor verification pending
+### 🔑 Access Control System
+- Doctor → Request access  
+- Patient → Approve with duration  
+- System → Generate access key  
+- Doctor → Start session  
+- Session → Auto expire  
 
 ---
 
-# 🏗️ Frontend Architecture
+### ⏳ Session Management
+- Display active sessions
+- Show:
+  - Doctor name
+  - Start time
+  - Expiry time
+- Patient can revoke access anytime
 
-```text
-Pages → Components → Services (API) → Backend API
+---
+
+### 📜 Activity Feedback (UX Layer)
+Real-time feedback for actions:
+
+- Request sent
+- Access approved/rejected
+- Session started
+- Access expired
+- Doctor verification status
+
+---
+
+## 🏗️ Frontend Architecture
+
+```
+Pages → Components → Services (API Layer)
                      ↓
                 Auth Layer (JWT)
                      ↓
-                State Management
+              State Management (Context)
 ```
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-| Layer      | Technology               |
-| ---------- | ------------------------ |
-| Framework  | React.js                 |
-| Styling    | Tailwind CSS             |
-| Routing    | React Router             |
-| API Calls  | Axios                    |
-| Animations | Framer Motion (optional) |
-| State      | React Hooks / Context    |
+| Layer        | Technology               |
+|-------------|------------------------|
+| Framework    | React (Vite)            |
+| Language     | TypeScript              |
+| Styling      | Tailwind CSS            |
+| Routing      | React Router            |
+| State        | Context API             |
+| API Calls    | Axios                   |
+| UI System    | Shadcn/UI Components    |
 
 ---
 
-# 📂 Folder Structure
+## 📂 Project Structure
 
-```text
-FrontEnd/
+```
+src/
 │
-├── src/
-│   ├── pages/
-│   │   ├── auth/ (Login, Register)
-│   │   ├── patient/
-│   │   ├── doctor/
-│   │   ├── admin/
-│   │
-│   ├── components/
-│   ├── services/ (API calls)
-│   ├── utils/
-│   ├── App.tsx
+├── pages/
+│   ├── auth/
+│   ├── patient/
+│   ├── doctor/
+│   ├── admin/
 │
-└── public/
+├── components/
+├── context/
+├── services/
+├── lib/
+│
+├── App.tsx
+├── main.tsx
+└── index.css
 ```
 
 ---
 
-# 🔄 Full User Flow
+## 🔄 Full User Flow
 
-## 👤 Patient Flow
-
-```text
+### 👤 Patient Flow
+```
 Register → Login
    ↓
 Create Profile
    ↓
 Upload Records
    ↓
-Receive Doctor Requests
+Receive Requests
    ↓
 Approve + Set Duration
    ↓
-View Active Sessions
+Monitor Sessions
    ↓
-Revoke Access (if needed)
+Revoke Access
 ```
 
 ---
 
-## 🧑‍⚕️ Doctor Flow (WITH VERIFICATION)
-
-```text
-Register (with ICMR ID)
+### 🧑‍⚕️ Doctor Flow
+```
+Register (ICMR ID)
    ↓
-System marks as PENDING
+Pending Verification
    ↓
-Admin reviews ICMR ID
+Admin Approval
    ↓
-✔ Verified → APPROVED
-✖ Invalid → REJECTED
-   ↓
-Login (only if approved)
-   ↓
-Create Profile
+Login
    ↓
 Request Access
    ↓
-Wait for Patient Approval
+Patient Approval
    ↓
 Generate Access Key
    ↓
@@ -235,55 +199,50 @@ Access Records
 
 ---
 
-## 🧑‍💼 Admin Flow (VERIFICATION FLOW)
-
-```text
+### 🧑‍💼 Admin Flow
+```
 Login
    ↓
 View Pending Doctors
    ↓
-Select Doctor
+Verify ICMR ID
    ↓
-Check ICMR ID manually (ICMR portal)
-   ↓
-If valid → Approve
-If invalid → Reject
+Approve / Reject
 ```
 
 ---
 
-# 🔐 Security Features
+## 🔐 Security Highlights
 
-* Role-based route protection
-* JWT token validation
-* Restricted UI access based on role
-* Doctor access blocked until verification
-* Time-bound session enforcement
-* Patient-controlled access duration
+- Role-based UI protection
+- JWT-based session validation
+- Restricted access per role
+- Doctor access blocked until verification
+- Time-limited sessions
+- Patient-controlled permissions
 
 ---
 
-# ⚙️ Setup & Installation
+## ⚙️ Setup & Installation
 
-## 1️⃣ Install Dependencies
+### 1️⃣ Install Dependencies
 
 ```bash
-cd FrontEnd
 npm install
 ```
 
 ---
 
-## 2️⃣ Configure API Base URL
+### 2️⃣ Configure API Base URL
 
-```js
-// src/services/api.js
+```ts
+// src/services/api.ts
 baseURL: "http://localhost:8080/api/v1"
 ```
 
 ---
 
-## 3️⃣ Run Application
+### 3️⃣ Run Development Server
 
 ```bash
 npm run dev
@@ -291,63 +250,53 @@ npm run dev
 
 Runs at:
 
-```text
+```
 http://localhost:5173
 ```
 
 ---
 
-# 🧪 Testing
+## 🔗 Backend Dependency
 
-* Use backend with Postman
-* Test frontend via browser
-* Validate flows:
+This frontend requires:
 
-  * Auth
-  * Doctor verification
-  * Access requests
-  * Sessions
+👉 **Medivault Backend (Spring Boot API)**
+
+Ensure backend is running before using the application.
 
 ---
 
-# 🔄 Example Workflow (REALISTIC)
+## 🧪 Testing
 
-```text
-Doctor registers with ICMR ID
-Admin verifies doctor credentials
-Doctor gets approved
-Doctor requests access
-Patient approves with time
-System generates access key
-Doctor starts session
-Doctor views records
-Session expires automatically
-```
+- Test via browser UI
+- Validate flows:
+  - Authentication
+  - Doctor verification
+  - Access control
+  - Session lifecycle
 
 ---
 
-# 🚨 Important Notes
+## 🚨 Important Notes
 
-* Doctor cannot access records without:
+- Doctors require:
+  - Admin verification  
+  - Patient approval  
+  - Access key  
+  - Active session  
 
-  * Admin verification
-  * Patient approval
-  * Access key
-  * Active session
-
-* ICMR ID is mandatory for doctor registration
-
-* Verification is manual via admin
+- ICMR ID is mandatory for doctor onboarding  
+- Verification is handled manually by admin  
 
 ---
 
-# 📈 Future Enhancements
+## 📈 Future Enhancements
 
-* Automated ICMR verification (if API available)
-* Document upload (license proof)
-* Email notifications for approvals
-* Real-time session updates
-* Mobile-first UI improvements
+- Automated ICMR verification  
+- Email notifications  
+- Real-time session updates  
+- File preview system  
+- Mobile-first UI improvements  
 
 ---
 
@@ -360,8 +309,6 @@ Session expires automatically
 
 ---
 
-# 📄 License
+## 📄 License
 
 This project is for educational and demonstration purposes.
-
----
