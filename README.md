@@ -354,7 +354,7 @@ Session expires automatically
 # 👥 Contributors
 
 Jivitesh (Owner)
-Kolli Jayanth Eswar (Key Contributor)
+@KOLLIJAYANTHESWAR(Key Contributor)
 
 ---
 
