@@ -351,10 +351,12 @@ Session expires automatically
 
 ---
 
-# 👥 Contributors
+## 👥 Contributors
 
-Jivitesh (Owner)
-@KOLLIJAYANTHESWAR(Key Contributor)
+- **Jivitesh**
+- **@KOLLIJAYANTHESWAR**
+
+> Both contributors collaborated on **frontend and backend development**, system design, and overall architecture of the Medivault platform.
 
 ---
 
